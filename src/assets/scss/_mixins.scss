@@ -1,0 +1,69 @@
+@import "variables";
+@import "utils";
+
+@mixin text(
+  $size: $base-font-size,
+  $color: $primary,
+  $lh: to-rem($base-line-height),
+  $ff: $base-font-family,
+  $fw: 400
+) {
+  font-size: to-rem($size);
+  color: $color;
+  line-height: to-rem($lh);
+  font-family: $ff;
+  font-weight: $fw;
+}
+
+@mixin position($type: static, $t: auto, $r: auto, $b: auto, $l: auto) {
+  position: $type;
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+}
+
+@mixin flex($type: row, $gap: 0, $justify: flex-start, $align: flex-start) {
+  display: flex;
+  flex-direction: $type;
+  gap: to-rem($gap);
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin breakpoint($user-value) {
+  $unit: map-get($breakpoints-map, $user-value);
+  @if $unit {
+    @media screen and (#{$unit}) {
+      @content;
+    }
+  } @else {
+    @warn "unsupported value: #{$user-value}";
+  }
+}
+
+@mixin circle($width: 50px, $height: 50px, $color: "") {
+  width: to-rem($width);
+  height: to-rem($height);
+  border-radius: 50%;
+  background: $color;
+}
+
+@mixin box($width: 50px, $height: 50px, $color: "") {
+  width: to-rem($width);
+  height: to-rem($height);
+  background: $color;
+}
+
+@mixin pseudo(
+  $width: 100%,
+  $height: 100%,
+  $display: inline-block,
+  $pos: absolute,
+  $content: ""
+) {
+  content: $content;
+  display: $display;
+  position: $pos;
+  @include box($width, $height);
+}
