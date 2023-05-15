@@ -3,12 +3,18 @@ import { defineConfig } from "vitest/config";
 import vue from "@vitejs/plugin-vue";
 const initPathAliases = () => {
   const paths = [
-    { relative: "utils", path: "./src/utils" },
-    { relative: "@", path: "./src" },
-    { relative: "components", path: "./src/components" },
-    { relative: "services", path: "./src/services" },
-    { relative: "config", path: "./src/config" },
-    { relative: "types", path: "./src/types" },
+    { relative: "utils", path: "./shared/utils" },
+    { relative: "@", path: "./" },
+    { relative: "services", path: "./shared/services" },
+    { relative: "config", path: "./shared/config" },
+    { relative: "types", path: "./shared/types" },
+    { relative: "shared", path: "./shared" },
+    { relative: "pages", path: "./pages" },
+    { relative: "entities", path: "./entities" },
+    { relative: "features", path: "./features" },
+    { relative: "app", path: "./app" },
+    { relative: "widgets", path: "./widgets" },
+    { relative: "processes", path: "./processes" },
   ];
 
   return paths.map((item) => ({

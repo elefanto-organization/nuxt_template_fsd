@@ -5,13 +5,27 @@ import { config as loadConfig } from "dotenv-flow";
 loadConfig();
 const getScssAdditionalData = (names: string[]) => {
   return names.reduce((acc, name) => {
-    return `${acc}\n@import "@/assets/scss/${name}";`;
+    return `${acc}\n@import "@/shared/assets/scss/${name}";`;
   }, "");
 };
 const getPath = (path: string) =>
-  fileURLToPath(new URL(`./src/${path}`, import.meta.url));
+  fileURLToPath(new URL(`./${path}`, import.meta.url));
+const initAliasPaths = () => {
+  const pathNames = [
+    "app",
+    "entities",
+    "features",
+    "widgets",
+    "shared",
+    "processes",
+  ];
+  return pathNames.reduce(
+    (result, pathName) => ({ ...result, [pathName]: getPath(pathName) }),
+    {}
+  );
+}
 export default defineNuxtConfig({
-  css: ["@/assets/scss/main.scss", "sanitize.css"],
+  css: ["/shared/assets/scss/main.scss", "sanitize.css"],
   vite: {
     css: {
       postcss: {
@@ -30,28 +44,25 @@ export default defineNuxtConfig({
       },
     },
   },
-  srcDir: "./src",
   runtimeConfig: {
     public: {
       apiURL: process.env.API_URL,
     },
   },
-  alias: {
-    components: getPath("components"),
-    pages: getPath("pages"),
-    utils: getPath("utils"),
-    types: getPath("types"),
-    services: getPath("services"),
-    config: getPath("config"),
-  },
+  alias: initAliasPaths(),
   dir: {
-    assets: getPath("assets"),
-    pages: getPath("pages"),
-    plugins: getPath("plugins"),
-    middleware: getPath("middleware"),
+    assets: getPath("shared/assets"),
+    plugins: getPath("app/plugins"),
+    middleware: getPath("app/middleware"),
+    layouts: getPath("app/layouts"),
+    static: getPath("shared/static"),
+    public: getPath("shared/public"),
   },
   modules: ["@vueuse/nuxt", "@intlify/nuxt3"],
-  plugins: ["~/plugins/api.ts"],
+  plugins: ["~/app/plugins/api.ts"],
+  imports: {
+    autoImport: false
+  },
   intlify: {
     vueI18n: {
       locale: "ru",
@@ -60,6 +71,6 @@ export default defineNuxtConfig({
       legacy: false,
       allowComposition: true,
     },
-    localeDir: "locales",
+    localeDir: "app/locales",
   },
 });
