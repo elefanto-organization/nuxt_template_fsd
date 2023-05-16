@@ -1,4 +1,9 @@
-import type { Colors, ComponentNames, Sizes, Variants } from "~~/shared/types/theme";
+import type {
+  Colors,
+  ComponentNames,
+  Sizes,
+  Variants,
+} from "~~/shared/types/theme";
 export type Modification = Colors | Sizes | Variants;
 
 const getComponentClassByModifications = (

@@ -22,7 +22,7 @@
 </template>
 <script lang="ts" setup>
 import { getComponentClasses } from "shared/utils";
-import {computed} from "#imports";
+import { computed } from "#imports";
 
 interface Props {
   message?: string;

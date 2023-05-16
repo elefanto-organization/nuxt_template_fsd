@@ -23,7 +23,7 @@ const initAliasPaths = () => {
     (result, pathName) => ({ ...result, [pathName]: getPath(pathName) }),
     {}
   );
-}
+};
 export default defineNuxtConfig({
   css: ["/shared/assets/scss/main.scss", "sanitize.css"],
   vite: {
@@ -61,7 +61,7 @@ export default defineNuxtConfig({
   modules: ["@vueuse/nuxt", "@intlify/nuxt3"],
   plugins: ["~/app/plugins/api.ts"],
   imports: {
-    autoImport: false
+    autoImport: false,
   },
   intlify: {
     vueI18n: {
